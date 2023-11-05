@@ -1,6 +1,6 @@
 import pika
 
-def connect(where='localhost', queue_name='test'):
+def rabbitmq_connect(where: str = 'localhost', queue_name: str = 'default'):
     connection = pika.BlockingConnection(pika.ConnectionParameters(where))
     channel = connection.channel()
 
