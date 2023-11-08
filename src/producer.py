@@ -4,19 +4,20 @@ from pathlib import Path
 
 from resources import rabbitmq_connect
 
+LOG_FORMAT = '%(asctime)s;%(levelname)s;%(message)s'
+LOG = logging.getLogger(__name__)
 
 class Producer:
 
     def __init__(self, queue_name: str = 'default'):
         """Message producer for RabbitMQ broker.
         """
-        logging.basicConfig(level=logging.INFO, format='%(asctime)s;%(levelname)s;%(message)s')
-        self.log = logging.getLogger()
+        LOG = logging.getLogger()
         self.connection, self.channel = rabbitmq_connect(queue_name=queue_name)
-        self.log.info('RabbitMQ channel opened.')
+        LOG.info('RabbitMQ channel opened.')
         
     def prepare_msg_from_file(self, json_path: Path) -> str:
-        self.log.info(f'Preparing json from: {json_path}')
+        LOG.info(f'Preparing json from: {json_path}')
         with open(json_path, 'r', encoding='utf-8') as json_file:
             json_bytes = json.dumps(json.load(json_file)).encode('utf-8')
             return json_bytes
@@ -30,6 +31,7 @@ class Producer:
         self.connection.close()
    
 def main():
+    logging.basicConfig(level=logging.DEBUG, format=LOG_FORMAT)
     producer = Producer()
     json_path = Path(__file__).parent / 'mock_offers.json'
     producer.publish(producer.prepare_msg_from_file(json_path), routing_key='default')

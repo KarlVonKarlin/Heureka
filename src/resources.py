@@ -1,4 +1,5 @@
 import pika
+import logging
 
 def rabbitmq_connect(where: str = 'localhost', queue_name: str = 'default'):
     connection = pika.BlockingConnection(pika.ConnectionParameters(where))
