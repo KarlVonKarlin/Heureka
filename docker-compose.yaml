@@ -2,6 +2,14 @@ version: '3.8'
 
 services:
 
+  consumer:
+    build:
+      context: .
+      dockerfile: dockerfile
+    depends_on:
+      db:
+        condition: service_started
+
   rabbitmq:
     image: rabbitmq:3.10.23-management
     container_name: rabbitmq3-management
@@ -16,5 +24,6 @@ services:
     hostname: pghost
     environment:
       POSTGRES_DB: "parameters"
+      POSTGRES_HOST: "pghost"
       POSTGRES_USER: "user_name"
       POSTGRES_PASSWORD: "user_password"
