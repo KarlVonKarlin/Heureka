@@ -10,10 +10,10 @@ class Database():
     
 
     def __init__(self,
-                 database: str = os.environ.get('POSTGRES_DB'),
-                 host: str = os.environ.get('POSTGRES_HOST'),
-                 user: str = os.environ.get('POSTGRES_USER'),
-                 password: str = os.environ.get('POSTGRES_PASSWORD'),
+                 database: str = "postgres",
+                 host: str = "pghost",
+                 user: str = "user_name",
+                 password: str = "user_password",
                  port: str = "5432"):
         """PostgreSQL handler. Implements basic database operations.
 
@@ -84,6 +84,7 @@ class Database():
                 )
                 """
         ]
+        conn = None
         for cmd in commands:
             try:
                 conn = self.connect()
