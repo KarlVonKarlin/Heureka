@@ -2,13 +2,13 @@ version: '3.8'
 
 services:
 
-  consumer:
-    build:
-      context: .
-      dockerfile: dockerfile
-    depends_on:
-      db:
-        condition: service_started
+  # consumer:
+  #   build:
+  #     context: .
+  #     dockerfile: dockerfile
+  #   depends_on:
+  #     db:
+  #       condition: service_started
 
   rabbitmq:
     image: rabbitmq:3.10.23-management
