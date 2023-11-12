@@ -1,4 +1,0 @@
-consumer
-heudb
-producer
-resources
